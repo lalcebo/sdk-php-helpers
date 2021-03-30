@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        php-versions: [ '7.3', '7.4', '8.0' ]
+
+    name: Test on ${{ matrix.os }} with 🐘 ${{ matrix.php-versions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        name: Configure PHP
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: composer:v2
+          coverage: none
+          extensions: json, ctype
+
+      - name: Install dependencies
+        run: composer install --ignore-platform-reqs
+
+      - name: Run the tests
+        run: composer tests
