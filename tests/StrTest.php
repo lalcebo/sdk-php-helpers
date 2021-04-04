@@ -59,4 +59,22 @@ class StrTest extends TestCase
         self::assertTrue(Str::containsAllInsensitive(['neque', 'Ipsum'], $this->providedTestString));
         self::assertFalse(Str::containsAllInsensitive(['quisquam', 'Hello'], $this->providedTestString));
     }
+
+    /** @test */
+    public function urlBase64Encode(): void
+    {
+        self::assertEquals(
+            'aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8',
+            Str::urlBase64Encode('https://github.com/lalcebo')
+        );
+    }
+
+    /** @test */
+    public function urlBase64Decode(): void
+    {
+        self::assertEquals(
+            'https://github.com/lalcebo',
+            Str::urlBase64Decode('aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8')
+        );
+    }
 }
