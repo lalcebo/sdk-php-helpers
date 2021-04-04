@@ -19,18 +19,44 @@ class StrTest extends TestCase
     protected $providedTestString = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit...';
 
     /** @test */
-    public function findSimpleStringValue(): void
+    public function containsSimpleValue(): void
     {
-        $find1 = Str::find('ipsum', $this->providedTestString);
-        self::assertTrue($find1);
+        self::assertTrue(Str::contains('ipsum', $this->providedTestString));
+        self::assertFalse(Str::contains('Dolor', $this->providedTestString));
+    }
 
-        $find2 = Str::find('Ipsum', $this->providedTestString, true);
-        self::assertTrue($find2);
+    /** @test */
+    public function containsArrayValues(): void
+    {
+        self::assertTrue(Str::contains(['porro', 'ipsum'], $this->providedTestString));
+        self::assertFalse(Str::contains(['unknown', 'hello'], $this->providedTestString));
+    }
 
-        $find3 = Str::find('Dolor', $this->providedTestString);
-        self::assertFalse($find3);
+    /** @test */
+    public function containsAllValues(): void
+    {
+        self::assertTrue(Str::containsAll(['Neque', 'ipsum'], $this->providedTestString));
+        self::assertFalse(Str::containsAll(['quisquam', 'Hello'], $this->providedTestString));
+    }
 
-        $find4 = Str::find('falseWord', $this->providedTestString);
-        self::assertFalse($find4);
+    /** @test */
+    public function containsInsensitiveSimpleValue(): void
+    {
+        self::assertTrue(Str::containsInsensitive('neque', $this->providedTestString));
+        self::assertFalse(Str::containsInsensitive('falseWord', $this->providedTestString));
+    }
+
+    /** @test */
+    public function containsInsensitiveArrayValues(): void
+    {
+        self::assertTrue(Str::containsInsensitive(['neque', 'Ipsum'], $this->providedTestString));
+        self::assertFalse(Str::containsInsensitive(['Unknown', 'Hello'], $this->providedTestString));
+    }
+
+    /** @test */
+    public function containsAllInsensitiveValues(): void
+    {
+        self::assertTrue(Str::containsAllInsensitive(['neque', 'Ipsum'], $this->providedTestString));
+        self::assertFalse(Str::containsAllInsensitive(['quisquam', 'Hello'], $this->providedTestString));
     }
 }
