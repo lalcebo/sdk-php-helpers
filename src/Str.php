@@ -71,4 +71,31 @@ class Str
 
         return true;
     }
+
+    /**
+     * Encode a string to base64 url-safe format.
+     *
+     * @param string $str
+     * @return string
+     */
+    public static function urlBase64Encode(string $str): string
+    {
+        return str_replace('=', '', strtr(base64_encode($str), '+/', '-_'));
+    }
+
+    /**
+     * Decode a string with base64 url-safe format.
+     *
+     * @param string $str
+     * @return string
+     */
+    public static function urlBase64Decode(string $str): string
+    {
+        $padding = strlen($str) % 4;
+        if ($padding > 0) {
+            $str .= str_repeat('=', 4 - $padding);
+        }
+
+        return base64_decode(strtr($str, '-_', '+/'));
+    }
 }
