@@ -39,4 +39,4 @@ The MIT License (MIT). Please see [License File][link-license] for more informat
 [link-packagist]: https://packagist.org/packages/lalcebo/sdk-php-helpers
 [link-license]: LICENSE
 [link-downloads]: https://packagist.org/packages/lalcebo/sdk-php-helpers
-[link-workflow]: https://github.com/lalcebo/sdk-php-helpers/actions/workflows/ci.yml
+[link-workflow]: https://github.com/lalcebo/sdk-php-helpers/actions/workflows/build.yml
