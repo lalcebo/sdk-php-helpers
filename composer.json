@@ -56,10 +56,10 @@
     "lint": "parallel-lint . --exclude vendor",
     "style": "phpcs -p --standard=PSR12 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
     "fix-style": "phpcbf -p --standard=PSR12 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-    "phpunit": "phpunit -colors=always --configuration phpunit.xml",
+    "phpunit": "phpunit --coverage-text -colors=always --configuration phpunit.xml",
     "tests": [
-      "parallel-lint . --exclude vendor",
-      "phpunit -colors=always --configuration phpunit.xml"
+      "@lint",
+      "@phpunit"
     ]
   }
 }
