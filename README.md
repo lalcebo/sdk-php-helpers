@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![CI Workflow][ico-workflow]][link-workflow]
+[![Build Workflow][ico-workflow]][link-workflow]
 [![Software License][ico-license]][link-license]
 
 ## Introduction
@@ -34,7 +34,7 @@ The MIT License (MIT). Please see [License File][link-license] for more informat
 [ico-version]: https://img.shields.io/packagist/v/lalcebo/sdk-php-helpers.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/lalcebo/sdk-php-helpers.svg?style=flat-square
-[ico-workflow]: https://img.shields.io/github/workflow/status/lalcebo/sdk-php-helpers/CI?style=flat-square
+[ico-workflow]: https://img.shields.io/github/workflow/status/lalcebo/sdk-php-helpers/Build?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/lalcebo/sdk-php-helpers
 [link-license]: LICENSE

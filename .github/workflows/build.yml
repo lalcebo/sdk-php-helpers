@@ -1,17 +1,17 @@
-name: CI
+name: Build
 
 on:
   pull_request:
 
 jobs:
-  build:
+  tests:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ ubuntu-latest ]
         php-versions: [ '7.3', '7.4', '8.0' ]
 
-    name: Test on ${{ matrix.os }} with 🐘 ${{ matrix.php-versions }}
+    name: Tests on ${{ matrix.os }} with 🐘 ${{ matrix.php-versions }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -21,11 +21,11 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           tools: composer:v2
-          coverage: none
+          coverage: xdebug
           extensions: json, ctype
 
       - name: Install dependencies
-        run: composer install --ignore-platform-reqs
+        run: composer update --no-progress --ignore-platform-reqs
 
       - name: Run the tests
         run: composer tests
