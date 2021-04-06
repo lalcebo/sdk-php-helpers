@@ -25,7 +25,7 @@ jobs:
           extensions: json, ctype
 
       - name: Install dependencies
-        run: composer update --no-progress
+        run: composer update --no-progress --ignore-platform-reqs
 
       - name: Run the tests
         run: composer tests
