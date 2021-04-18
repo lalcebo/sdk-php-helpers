@@ -1,0 +1,33 @@
+name: Coding Standards
+on:
+  push:
+    # Master branch is protected for everyone.
+    branches-ignore:
+      - master
+    paths:
+      - '**.php'
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    name: Format
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - uses: shivammathur/setup-php@v2
+        name: Configure PHP
+        with:
+          php-version: 7.3
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-progress
+
+      - name: Run PHP CS Fixer
+        run: composer format
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply php-cs-fixer changes.
