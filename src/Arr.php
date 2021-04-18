@@ -29,7 +29,7 @@ class Arr
             $ref = &$out;
             foreach (explode($delimiter, $parent_key) as $key) {
                 if (!array_key_exists($key, $ref)) {
-                    $ref[$key] = array();
+                    $ref[$key] = [];
                 }
                 $ref = &$ref[$key];
             }
