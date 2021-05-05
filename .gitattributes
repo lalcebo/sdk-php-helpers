@@ -8,3 +8,4 @@
 /CHANGELOG.md       export-ignore
 /phpunit.xml        export-ignore
 /UPGRADE-*.md       export-ignore
+/.php-cs-fixer.php  export-ignore
