@@ -78,10 +78,7 @@ class ArrTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @noinspection PhpUnusedParameterInspection
-     */
+    /** @test */
     public function filterRecursiveResult(): void
     {
         $filter1 = Arr::filterRecursive(
