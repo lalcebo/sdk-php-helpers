@@ -18,6 +18,12 @@ class StrTest extends TestCase
     /** @var string */
     protected $providedTestString = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit...';
 
+    /** @var string */
+    protected $url = 'https://github.com/lalcebo';
+
+    /** @var string */
+    protected $urlBase64Encode = 'aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8';
+
     /** @test */
     public function containsSimpleValue(): void
     {
@@ -63,18 +69,12 @@ class StrTest extends TestCase
     /** @test */
     public function urlBase64Encode(): void
     {
-        self::assertEquals(
-            'aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8',
-            Str::urlBase64Encode('https://github.com/lalcebo')
-        );
+        self::assertEquals($this->urlBase64Encode, Str::urlBase64Encode($this->url));
     }
 
     /** @test */
     public function urlBase64Decode(): void
     {
-        self::assertEquals(
-            'https://github.com/lalcebo',
-            Str::urlBase64Decode('aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8')
-        );
+        self::assertEquals($this->url, Str::urlBase64Decode($this->urlBase64Encode));
     }
 }
