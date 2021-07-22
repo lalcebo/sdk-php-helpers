@@ -13,7 +13,7 @@ Provides a collection of PHP helpers functions.
 
 This package requires:
 
-- PHP **^7.3** | **^8.0**
+- PHP **^7.2** | **^8.0**
 
 ## Installation
 
