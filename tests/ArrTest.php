@@ -22,7 +22,8 @@ class ArrTest extends TestCase
         'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
         'name' => [
             'first' => 'Bowen',
-            'last' => 'Peters'
+            'last' => 'Peters',
+            'age' => 40
         ],
         'phone' => '+1 (989) 554-2724',
         'registered' => 'Friday, August 2, 2019 7 =>51 PM',
@@ -33,49 +34,33 @@ class ArrTest extends TestCase
         ]
     ];
 
+    /** @var array */
+    protected $providedFlattenedArray = [
+        'id' => '605f6f26a6a97004210e0c99',
+        'index' => 4,
+        'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
+        'name_first' => 'Bowen',
+        'name_last' => 'Peters',
+        'name_age' => 40,
+        'phone' => '+1 (989) 554-2724',
+        'registered' => 'Friday, August 2, 2019 7 =>51 PM',
+        'tags_0' => 'reprehenderit',
+        'tags_1' => 'incididunt',
+        'tags_2' => 'eu'
+    ];
+
     /** @test */
     public function toFlattenResult(): void
     {
         $toFlat = Arr::flatten($this->providedTestArray);
-        self::assertEquals(
-            [
-                'id' => '605f6f26a6a97004210e0c99',
-                'index' => 4,
-                'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
-                'name_first' => 'Bowen',
-                'name_last' => 'Peters',
-                'phone' => '+1 (989) 554-2724',
-                'registered' => 'Friday, August 2, 2019 7 =>51 PM',
-                'tags_0' => 'reprehenderit',
-                'tags_1' => 'incididunt',
-                'tags_2' => 'eu'
-            ],
-            $toFlat
-        );
+        self::assertEquals($this->providedFlattenedArray, $toFlat);
     }
 
     /** @test  */
     public function toMultidimensionalResult(): void
     {
-        $toMultiDimensional = Arr::multiDimensional(
-            [
-                'id' => '605f6f26a6a97004210e0c99',
-                'index' => 4,
-                'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
-                'name_first' => 'Bowen',
-                'name_last' => 'Peters',
-                'phone' => '+1 (989) 554-2724',
-                'registered' => 'Friday, August 2, 2019 7 =>51 PM',
-                'tags_0' => 'reprehenderit',
-                'tags_1' => 'incididunt',
-                'tags_2' => 'eu'
-            ]
-        );
-
-        self::assertEquals(
-            $this->providedTestArray,
-            $toMultiDimensional
-        );
+        $toMultiDimensional = Arr::multiDimensional($this->providedFlattenedArray);
+        self::assertEquals($this->providedTestArray, $toMultiDimensional);
     }
 
     /** @test */
@@ -94,10 +79,10 @@ class ArrTest extends TestCase
         $filter2 = Arr::filterRecursive(
             $this->providedTestArray,
             static function ($value) {
-                return is_int($value);
+                return (is_array($value) && !empty($value)) || is_int($value);
             }
         );
 
-        self::assertEquals(['index' => 4], $filter2);
+        self::assertEquals(['index' => 4, 'name' => ['age' => 40]], $filter2);
     }
 }
