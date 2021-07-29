@@ -73,6 +73,7 @@ class Arr
 
         foreach ($iterator as $key => $value) {
             $path[$iterator->getDepth()] = $key;
+            $value = is_object($value) && method_exists($value, 'toArray') ? $value->toArray() : $value;
             if (!is_array($value)) {
                 $flat[implode($glue, array_slice($path, 0, $iterator->getDepth() + 1))] = $value;
             }
