@@ -39,9 +39,6 @@
       "Lalcebo\\Helpers\\Tests\\": "tests/"
     }
   },
-  "replace": {
-    "symfony/polyfill-ctype": "*"
-  },
   "minimum-stability": "stable",
   "config": {
     "sort-packages": true
