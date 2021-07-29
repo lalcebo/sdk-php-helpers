@@ -18,16 +18,16 @@ class Arr
     /**
      * Convert single level array to multidimensional array.
      *
-     * @param array $array
+     * @param array $flattenArray
      * @param string $delimiter
      * @return array
      */
-    public static function multiDimensional(array $array, string $delimiter = '_'): array
+    public static function dimensional(array $flattenArray, string $delimiter = '_'): array
     {
         $out = [];
-        foreach ($array as $parent_key => $val) {
+        foreach ($flattenArray as $parentKey => $val) {
             $ref = &$out;
-            foreach (explode($delimiter, $parent_key) as $key) {
+            foreach (explode($delimiter, (string)$parentKey) as $key) {
                 if (!array_key_exists($key, $ref)) {
                     $ref[$key] = [];
                 }
@@ -42,11 +42,24 @@ class Arr
     /**
      * Convert multidimensional array into a single level array.
      *
+     * @param array $array
+     * @param int $depth
+     * @return array
+     */
+    public static function flatten(array $array, int $depth = -1): array
+    {
+        return array_values(static::flattenWithKeys($array, $depth));
+    }
+
+    /**
+     * Convert multidimensional array into a single level array using current array keys.
+     *
      * @param array $array Multidimensional key array.
+     * @param int $depth
      * @param string $glue Separator to use on key.
      * @return array
      */
-    public static function flatten(array $array, string $glue = '_'): array
+    public static function flattenWithKeys(array $array, int $depth = -1, string $glue = '_'): array
     {
         $path = [];
         $flat = [];
@@ -55,6 +68,8 @@ class Arr
             new RecursiveArrayIterator($array),
             RecursiveIteratorIterator::SELF_FIRST
         );
+
+        $iterator->setMaxDepth($depth);
 
         foreach ($iterator as $key => $value) {
             $path[$iterator->getDepth()] = $key;
@@ -69,16 +84,16 @@ class Arr
     /**
      * Filters recursive elements of an array using a callback function.
      *
-     * @param  array  $input
-     * @param  callable|null  $callback
-     * @param  int  $flag
+     * @param array $input
+     * @param callable|null $callback
+     * @param int $flag
      * @return array
      */
     public static function filterRecursive(array $input, callable $callback = null, int $flag = 0): array
     {
         foreach ($input as &$value) {
             if (is_array($value)) {
-                $value = self::filterRecursive($value, $callback, $flag);
+                $value = static::filterRecursive($value, $callback, $flag);
             }
         }
 
