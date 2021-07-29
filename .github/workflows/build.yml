@@ -30,4 +30,6 @@ jobs:
         run: composer update --no-progress
 
       - name: Run the tests
-        run: composer tests
+        run: |
+          cp phpunit.xml.dist phpunit.xml
+          composer tests

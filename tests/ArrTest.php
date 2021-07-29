@@ -121,6 +121,34 @@ class ArrTest extends TestCase
             ],
             $toFlat2
         );
+
+        $toFlat3 = Arr::flattenWithKeys(
+            [
+                'id' => '605f6f26a6a97004210e0c99',
+                'index' => 4,
+                'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
+                'name' => new class() {
+                    public $first = 'Bowen';
+                    public $last = 'Peters';
+                    public $age = 40;
+                    public function toArray(): array
+                    {
+                        return (array)$this;
+                    }
+                }
+            ]
+        );
+        self::assertEquals(
+            [
+                'id' => '605f6f26a6a97004210e0c99',
+                'index' => 4,
+                'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
+                'name_first' => 'Bowen',
+                'name_last' => 'Peters',
+                'name_age' => 40
+            ],
+            $toFlat3
+        );
     }
 
     /** @test */
