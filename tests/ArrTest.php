@@ -127,7 +127,7 @@ class ArrTest extends TestCase
                 'id' => '605f6f26a6a97004210e0c99',
                 'index' => 4,
                 'guid' => 'dc03ae65-e057-4270-a912-db15e4f5f029',
-                'name' => new class() {
+                'name' => new class () {
                     public $first = 'Bowen';
                     public $last = 'Peters';
                     public $age = 40;
