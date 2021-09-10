@@ -1,9 +1,8 @@
 name: Build
 
 on:
-  pull_request:
-    branches:
-      - master
+  - push
+  - pull_request
 
 jobs:
   tests:
@@ -17,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - uses: shivammathur/setup-php@v2
         name: Configure PHP
