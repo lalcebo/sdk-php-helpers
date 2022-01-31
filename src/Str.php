@@ -98,4 +98,31 @@ class Str
 
         return base64_decode(strtr($str, '-_', '+/'));
     }
+
+    /**
+     * Check if a string is a valid base64 encode.
+     *
+     * @param string $str
+     * @return bool
+     */
+    public static function validBase64(string $str): bool
+    {
+        // Check if there are valid base64 characters
+        if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $str)) {
+            return false;
+        }
+
+        // Decode the string in strict mode and check the results
+        $decoded = base64_decode($str, true);
+        if ($decoded === false) {
+            return false;
+        }
+
+        // Encode the string again
+        if (base64_encode($decoded) !== $str) {
+            return false;
+        }
+
+        return true;
+    }
 }
