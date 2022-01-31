@@ -77,4 +77,18 @@ class StrTest extends TestCase
     {
         self::assertEquals($this->url, Str::urlBase64Decode($this->urlBase64Encode));
     }
+
+    /** @test */
+    public function validBase64String(): void
+    {
+        self::assertTrue(Str::validBase64('VmFsaWQgYmFzZTY0IHRleHQ='));
+    }
+
+    /** @test */
+    public function invalidBase64String(): void
+    {
+        self::assertFalse(Str::validBase64('falseBase64String'));
+        self::assertFalse(Str::validBase64('$&^#invalidBase64String'));
+        self::assertFalse(Str::validBase64('VmFsaWQgYmFzZTY0IHRleH'));
+    }
 }
