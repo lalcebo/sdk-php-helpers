@@ -2,7 +2,8 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Build Workflow][ico-workflow]][link-workflow]
+[![Tests Workflow][ico-tests]][link-tests]
+[![Style Workflow][ico-style]][link-style]
 [![Software License][ico-license]][link-license]
 
 ## Introduction
@@ -31,12 +32,14 @@ I'll try to maintain this project as simple as possible, but pull requests are w
 
 The MIT License (MIT). Please see [License File][link-license] for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/lalcebo/sdk-php-helpers.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/lalcebo/sdk-php-helpers.svg?style=flat-square
-[ico-workflow]: https://img.shields.io/github/workflow/status/lalcebo/sdk-php-helpers/Build?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/lalcebo/sdk-php-helpers.svg?style=for-the-badge&logo=Packagist
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge&color=blue
+[ico-downloads]: https://img.shields.io/packagist/dt/lalcebo/sdk-php-helpers.svg?style=for-the-badge
+[ico-tests]: https://img.shields.io/github/workflow/status/lalcebo/sdk-php-helpers/Build?style=for-the-badge&label=tests&logo=github
+[ico-style]: https://img.shields.io/github/workflow/status/lalcebo/sdk-php-helpers/Coding%20Standards?style=for-the-badge&label=PSR-12&logo=github
 
 [link-packagist]: https://packagist.org/packages/lalcebo/sdk-php-helpers
 [link-license]: LICENSE
 [link-downloads]: https://packagist.org/packages/lalcebo/sdk-php-helpers
-[link-workflow]: https://github.com/lalcebo/sdk-php-helpers/actions/workflows/build.yml
+[link-tests]: https://github.com/lalcebo/sdk-php-helpers/actions/workflows/build.yml?query=branch%3Amaster
+[link-style]: https://github.com/lalcebo/sdk-php-helpers/actions/workflows/php-cs-fixer.yml
