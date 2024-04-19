@@ -1,94 +1,74 @@
 <?php
 
-/**
- * Created by Jorge P. Hernandez Lalcebo
- * Mail: lalcebo2003@gmail.com
- * Date: 3/27/21 2:48 PM
- */
+/** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);
 
-namespace Lalcebo\Helpers\Tests;
-
 use Lalcebo\Helpers\Str;
-use PHPUnit\Framework\TestCase;
 
-class StrTest extends TestCase
-{
-    /** @var string */
-    protected $providedTestString = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit...';
+beforeEach(function () {
+    $this->providedTestString = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit...';
+    $this->url = 'https://github.com/lalcebo';
+    $this->urlBase64Encode = 'aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8';
+});
 
-    /** @var string */
-    protected $url = 'https://github.com/lalcebo';
+it('should contains a simple value', function ($value, $match) {
+    expect(Str::contains($value, $this->providedTestString))->toEqual($match);
+})->with([
+    ['ipsum', true], ['Dolor', false],
+]);
 
-    /** @var string */
-    protected $urlBase64Encode = 'aHR0cHM6Ly9naXRodWIuY29tL2xhbGNlYm8';
+it('should contains array values', function ($value, $match) {
+    expect(Str::contains($value, $this->providedTestString))->toEqual($match);
+})->with([
+    [['porro', 'ipsum'], true],
+    [['unknown', 'hello'], false],
+]);
 
-    /** @test */
-    public function containsSimpleValue(): void
-    {
-        self::assertTrue(Str::contains('ipsum', $this->providedTestString));
-        self::assertFalse(Str::contains('Dolor', $this->providedTestString));
-    }
+it('should contains all values', function ($value, $match) {
+    expect(Str::containsAll($value, $this->providedTestString))->toEqual($match);
+})->with([
+    [['Neque', 'ipsum'], true],
+    [['quisquam', 'Hello'], false],
+]);
 
-    /** @test */
-    public function containsArrayValues(): void
-    {
-        self::assertTrue(Str::contains(['porro', 'ipsum'], $this->providedTestString));
-        self::assertFalse(Str::contains(['unknown', 'hello'], $this->providedTestString));
-    }
+it('should contains insensitive simple value', function ($value, $match) {
+    expect(Str::containsInsensitive($value, $this->providedTestString))->toEqual($match);
+})->with([
+    ['neque', true],
+    ['falseWord', false],
+]);
 
-    /** @test */
-    public function containsAllValues(): void
-    {
-        self::assertTrue(Str::containsAll(['Neque', 'ipsum'], $this->providedTestString));
-        self::assertFalse(Str::containsAll(['quisquam', 'Hello'], $this->providedTestString));
-    }
+it('should contains insensitive array values', function ($value, $match) {
+    expect(Str::containsInsensitive($value, $this->providedTestString))->toEqual($match);
+})->with([
+    [['neque', 'Ipsum'], true],
+    [['Unknown', 'Hello'], false],
+]);
 
-    /** @test */
-    public function containsInsensitiveSimpleValue(): void
-    {
-        self::assertTrue(Str::containsInsensitive('neque', $this->providedTestString));
-        self::assertFalse(Str::containsInsensitive('falseWord', $this->providedTestString));
-    }
+it('should contains all insensitive array values', function ($value, $match) {
+    expect(Str::containsAllInsensitive($value, $this->providedTestString))->toEqual($match);
+})->with([
+    [['neque', 'Ipsum'], true],
+    [['quisquam', 'Hello'], false],
+]);
 
-    /** @test */
-    public function containsInsensitiveArrayValues(): void
-    {
-        self::assertTrue(Str::containsInsensitive(['neque', 'Ipsum'], $this->providedTestString));
-        self::assertFalse(Str::containsInsensitive(['Unknown', 'Hello'], $this->providedTestString));
-    }
+it('should encode url to base64 ', function () {
+    expect(Str::urlBase64Encode($this->url))
+        ->toEqual($this->urlBase64Encode);
+});
 
-    /** @test */
-    public function containsAllInsensitiveValues(): void
-    {
-        self::assertTrue(Str::containsAllInsensitive(['neque', 'Ipsum'], $this->providedTestString));
-        self::assertFalse(Str::containsAllInsensitive(['quisquam', 'Hello'], $this->providedTestString));
-    }
+it('should decode url from base64', function () {
+    expect(Str::urlBase64Decode($this->urlBase64Encode))
+        ->toEqual($this->url);
+});
 
-    /** @test */
-    public function urlBase64Encode(): void
-    {
-        self::assertEquals($this->urlBase64Encode, Str::urlBase64Encode($this->url));
-    }
-
-    /** @test */
-    public function urlBase64Decode(): void
-    {
-        self::assertEquals($this->url, Str::urlBase64Decode($this->urlBase64Encode));
-    }
-
-    /** @test */
-    public function validBase64String(): void
-    {
-        self::assertTrue(Str::validBase64('VmFsaWQgYmFzZTY0IHRleHQ='));
-    }
-
-    /** @test */
-    public function invalidBase64String(): void
-    {
-        self::assertFalse(Str::validBase64('falseBase64String'));
-        self::assertFalse(Str::validBase64('$&^#invalidBase64String'));
-        self::assertFalse(Str::validBase64('VmFsaWQgYmFzZTY0IHRleH'));
-    }
-}
+it('should check a valid base64', function ($value, $match) {
+    expect(Str::validBase64($value))
+        ->toEqual($match);
+})->with([
+    ['VmFsaWQgYmFzZTY0IHRleHQ=', true],
+    ['falseBase64String', false],
+    ['$&^#invalidBase64String', false],
+    ['VmFsaWQgYmFzZTY0IHRleH', false],
+]);

@@ -1,0 +1,42 @@
+name: Integration
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read # This is required for actions/checkout
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [ 8.2, 8.3 ]
+        stability: [ prefer-lowest, prefer-stable ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Use PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: composer:v2
+          coverage: xdebug
+          ini-values: error_reporting=E_ALL
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
+
+      - name: Run the tests
+        run: |
+          cp phpunit.xml.dist phpunit.xml
+          composer run test
