@@ -54,7 +54,7 @@ class Arr
      *
      * @param  array<int|string,mixed>  $array  Multidimensional key array.
      * @param  string  $glue  Separator to use on a key.
-     * @return array<int,mixed>
+     * @return array<int|string,mixed>
      */
     public static function flattenWithKeys(array $array, int $depth = -1, string $glue = '_'): array
     {
