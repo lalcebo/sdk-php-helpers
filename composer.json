@@ -23,7 +23,6 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^v3.54.0",
     "laravel/pint": "^1.15",
     "pestphp/pest": "^1.23",
     "phpstan/phpstan": "^1.10",
